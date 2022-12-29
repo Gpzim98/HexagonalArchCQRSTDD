@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Customers", "Customers", "{C499B8A0-18D7-4B86-8BD5-28E3D91B92C8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Catalog", "Catalog", "{7F6D712D-2788-44D5-A118-37062675ED61}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Sales", "Sales", "{3E228C68-B75E-40D8-9688-49C090F06C09}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shipping", "Shipping", "{12C3B036-3C01-44A6-A005-C3C8C62CF870}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{FBAC3A45-AAAC-4ED3-84ED-F7118E8D7C2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "Domain\Domain.csproj", "{D8F33CFF-D4F7-4074-9FA3-1919A6A9A7E7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D8F33CFF-D4F7-4074-9FA3-1919A6A9A7E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8F33CFF-D4F7-4074-9FA3-1919A6A9A7E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8F33CFF-D4F7-4074-9FA3-1919A6A9A7E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8F33CFF-D4F7-4074-9FA3-1919A6A9A7E7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{FBAC3A45-AAAC-4ED3-84ED-F7118E8D7C2F} = {C499B8A0-18D7-4B86-8BD5-28E3D91B92C8}
+		{D8F33CFF-D4F7-4074-9FA3-1919A6A9A7E7} = {FBAC3A45-AAAC-4ED3-84ED-F7118E8D7C2F}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5CECEBBA-9BAE-4B0A-A122-EE49495008B2}
+	EndGlobalSection
+EndGlobal
