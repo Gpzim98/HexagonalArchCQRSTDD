@@ -1,8 +1,9 @@
-using System;
+using Domain.Entities;
+using Domain.ValueObjects;
+using Domain.Enums;
 using Xunit;
 using Domain.Exceptions;
-using Domain;
-using Domain.Entities;
+using System;
 
 namespace DomainTests
 {
@@ -15,15 +16,111 @@ namespace DomainTests
             {
                 Name = "Test",
                 Surname = "Test",
-                CustomerDocument = new ValueObjects.CustomerDocument()
+                CustomerDocument = new CustomerDocument()
                 {
-                    DocumentType = Domain.Enums.DocumentType.DriveLicence,
+                    DocumentType = DocumentType.DriveLicence,
                     IdNumber = "123ABC"
                 },
                 Email = "a@a.com",
             };
 
             Assert.True(customer.IsValid());
+        }
+
+        [Fact]
+        public void ShouldThrowMissingRequiredInformationWhenNameIsNotProvided()
+        {
+            var customer = new Customer()
+            {
+                Name = "",
+                Surname = "Test",
+                CustomerDocument = new CustomerDocument()
+                {
+                    DocumentType = DocumentType.DriveLicence,
+                    IdNumber = "123ABC"
+                },
+                Email = "a@a.com",
+            };
+            Action act = () => customer.IsValid();
+
+            var exception = Assert.Throws<MissingRequiredInformationException>(act);
+        }
+
+        [Fact]
+        public void ShouldThrowMissingRequiredInformationWhenSurnameIsNotProvided()
+        {
+            var customer = new Customer()
+            {
+                Name = "Test",
+                Surname = "",
+                CustomerDocument = new CustomerDocument()
+                {
+                    DocumentType = DocumentType.DriveLicence,
+                    IdNumber = "123ABC"
+                },
+                Email = "a@a.com",
+            };
+            Action act = () => customer.IsValid();
+
+            var exception = Assert.Throws<MissingRequiredInformationException>(act);
+        }
+
+        [Fact]
+        public void ShouldThrowInvalidEmailExceptionWhenEmailIsInvalid()
+        {
+            var customer = new Customer()
+            {
+                Name = "Test",
+                Surname = "Test",
+                CustomerDocument = new CustomerDocument()
+                {
+                    DocumentType = DocumentType.DriveLicence,
+                    IdNumber = "123ABC"
+                },
+                Email = "",
+            };
+            Action act = () => customer.IsValid();
+
+            var exception = Assert.Throws<InvalidEmailException>(act);
+            Assert.Equal(exception.Message, "User email is invalid");
+        }
+
+
+        [Fact]
+        public void ShouldThrowInvalidPersonDocumentIdExceptionWhenDocumentIsInvalid()
+        {
+            var customer = new Customer()
+            {
+                Name = "Test",
+                Surname = "Test",
+                CustomerDocument = new CustomerDocument()
+                {
+                    DocumentType = DocumentType.DriveLicence,
+                    IdNumber = "123"
+                },
+                Email = "a@a.com",
+            };
+            Action act = () => customer.IsValid();
+
+            var exception = Assert.Throws<InvalidCustomerDocumentException>(act);
+        }
+
+        [Fact]
+        public void ShouldThrowInvalidPersonDocumentIdExceptionWhenDocumentTypeIsNotProvided()
+        {
+            var customer = new Customer()
+            {
+                Name = "Test",
+                Surname = "Test",
+                CustomerDocument = new CustomerDocument()
+                {
+                    IdNumber = "123ABC"
+                },
+                Email = "a@a.com",
+            };
+            Action act = () => customer.IsValid();
+
+            var exception = Assert.Throws<InvalidCustomerDocumentException>(act);
         }
     }
 }

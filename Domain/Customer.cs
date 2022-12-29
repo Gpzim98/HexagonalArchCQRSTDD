@@ -1,4 +1,7 @@
-﻿namespace Domain.Entities
+﻿using Domain.Exceptions;
+using Domain.ValueObjects;
+
+namespace Domain.Entities
 {
     public class Customer
     {
