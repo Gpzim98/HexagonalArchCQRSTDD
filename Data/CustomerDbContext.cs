@@ -11,7 +11,7 @@ namespace Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(CustomerConfiguration());
+            modelBuilder.ApplyConfiguration(new CustomerConfiguration());
         }
     }
 }
