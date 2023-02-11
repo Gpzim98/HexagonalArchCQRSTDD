@@ -3,6 +3,9 @@ public class APIConfiguration
 	private WebApplicationBuilder _builder;
 	public APIConfiguration(string[] args, Action<IServiceCollection> options)
 	{
+		var dir = AppDomain.CurrentDomain.BaseDirectory;
+		Directory.SetCurrentDirectory(dir);
+
 		_builder = WebApplication.CreateBuilder(
 			new WebApplicationOptions
 			{
