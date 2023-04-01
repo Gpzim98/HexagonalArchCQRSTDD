@@ -4,4 +4,9 @@
     { 
         Task<string> GetCustomerNameAsync();
     }
+
+    public interface ICreateCustomer
+    {
+        Task<int> CreateCustomerAsync(CustomerDTO customer);
+    }
 }

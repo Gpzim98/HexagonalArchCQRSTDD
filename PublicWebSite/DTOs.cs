@@ -11,15 +11,31 @@ namespace PublicWebSite
         public string Email { get; set; }
         public CustomerDocument DocumentId { get; set; }
 
-        public Customer MapToDomain()
+        public static Customer MapToDomain(CustomerDTO customer)
         {
             return new Customer()
             {
-                Id = this.Id,
-                Name = this.Name,
-                Surname = this.Surname,
-                Email = this.Email,
-                CustomerDocument = this.DocumentId
+                Id = customer.Id,
+                Name = customer.Name,
+                Surname = customer.Surname,
+                Email = customer.Email,
+                CustomerDocument = customer.DocumentId
+            };
+        }
+
+        public static CustomerDTO MapToDTO(Customer customer)
+        {
+            return new CustomerDTO()
+            {
+                Id = customer.Id,
+                Name = customer.Name,
+                Surname = customer.Surname,
+                Email = customer.Email,
+                DocumentId = new CustomerDocument()
+                {
+                    IdNumber = customer.CustomerDocument.IdNumber,
+                    DocumentType = customer.CustomerDocument.DocumentType,
+                }
             };
         }
     }
