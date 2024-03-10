@@ -21,6 +21,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
     <ProjectReference Include="..\PrivateWebSite\PrivateWebSite.csproj" />
+    <ProjectReference Include="..\PublicWebSite\PublicWebSite.csproj" />
   </ItemGroup>
 
 </Project>

@@ -11,7 +11,8 @@ namespace PublicWebSiteTests
         {
             var createCustomerMock = new Mock<ICreateCustomer>();
             createCustomerMock.Setup(
-                c => c.CreateCustomerAsync(It.IsAny<CustomerDTO>())).Returns(Task.FromResult(1));
+                c => c.CreateCustomerAsync(It.IsAny<CustomerDTO>())).Returns(
+                Task.FromResult(It.IsAny<Domain.Entities.Customer>()));
 
             var handler = new CreateCustomerCommandHandler(createCustomerMock.Object);
             var command = new CreateCustomerCommand();

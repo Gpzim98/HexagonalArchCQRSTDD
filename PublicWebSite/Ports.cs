@@ -7,6 +7,6 @@
 
     public interface ICreateCustomer
     {
-        Task<int> CreateCustomerAsync(CustomerDTO customer);
+        Task<Domain.Entities.Customer> CreateCustomerAsync(CustomerDTO customer);
     }
 }

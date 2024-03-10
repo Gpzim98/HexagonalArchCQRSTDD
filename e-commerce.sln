@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Start", "Start\Start.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "WebAPI\WebAPI.csproj", "{55D24A85-28D9-444C-AD62-2D19EF0BA185}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PublicWebSiteTests", "PublicWebSiteTests\PublicWebSiteTests.csproj", "{8C0B9B16-E0E0-4CAF-ACAA-7B27293A0D41}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PublicWebSiteTests", "PublicWebSiteTests\PublicWebSiteTests.csproj", "{8C0B9B16-E0E0-4CAF-ACAA-7B27293A0D41}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PublicWebSite;
 
 var builder = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -15,6 +16,10 @@ var apiConfiguration = new APIConfiguration(args, options =>
 {
     options.AddDbContext<CustomerDbContext>(
        options => options.UseSqlServer(connectionString));
+
+    options.AddScoped<ICreateCustomer, CustomerCreator>();
+
+    options.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<CreateCustomerCommandHandler>());
 });
 
 await apiConfiguration.RunAsync();
