@@ -7,4 +7,12 @@
 	<OutputType>Library</OutputType>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PublicWebSite\PublicWebSite.csproj" />
+  </ItemGroup>
+
 </Project>

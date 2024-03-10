@@ -17,7 +17,7 @@ namespace PublicWebSite
                 var customer = CustomerDTO.MapToDomain(request.CustomerDTO);
                 customer.IsValid();
 
-                customer.Id = await _createCustomer.CreateCustomerAsync(request.CustomerDTO);
+                customer = await _createCustomer.CreateCustomerAsync(request.CustomerDTO);
 
                 return new CustomerResponse()
                 {
