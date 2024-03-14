@@ -1,4 +1,6 @@
-﻿namespace PublicWebSite
+﻿using Domain;
+
+namespace PublicWebSite
 {
     public enum ErrorCodes
     {
@@ -9,6 +11,13 @@
         MISSING_REQUIRED_INFORMATION = 4,
         INVALID_EMAIL = 5,
         CUSTOMER_NOT_FOUND = 6,
+
+        // 100 - 119 Errors related to Authentication and Authorization
+        FAILED_TO_AUTHENTICATE_USER = 100,
+
+        //120 - 150
+        USER_DOES_NOT_HAVE_PERMISSION_TO_QUERY_RECORD = 120,
+        UNKNOWN = 999
     }
 
     public abstract class Response
@@ -21,5 +30,11 @@
     public class CustomerResponse : Response
     {
         public CustomerDTO Data;
+    }
+
+    public class UserResponse : Response
+    {
+        public User Data;
+        public string Token;
     }
 }

@@ -1,12 +1,55 @@
-﻿using MediatR;
+﻿using Domain;
+using MediatR;
 
 namespace PublicWebSite
 {
     public class GetCustomerHandler : IRequestHandler<GetCustomerQuery, CustomerResponse>
     {
-        public Task<CustomerResponse> Handle(GetCustomerQuery query, CancellationToken cancellationToken)
+        private readonly IProvideCustomerData _customerDataProvider;
+        public GetCustomerHandler(IProvideCustomerData customerDataProvider)
         {
-            throw new NotImplementedException();
+            _customerDataProvider = customerDataProvider;
+        }
+        public async Task<CustomerResponse> Handle(GetCustomerQuery query, CancellationToken cancellationToken)
+        {
+            try
+            {
+                ValidateUserPermission(query.User);
+                var customer = await _customerDataProvider.GetCustomerData(query.Id);
+                return new CustomerResponse
+                {
+                    Success = true,
+                    Message = "Data fetched successfully",
+                    Data = CustomerDTO.MapToDTO(customer)
+                };
+            }
+            catch (UserDoesNotHavePermissionsToSeeTheRecord)
+            {
+                return new CustomerResponse()
+                {
+                    Success = false,
+                    Message = "The user does not have permissions to query the record",
+                    ErrorCode = ErrorCodes.USER_DOES_NOT_HAVE_PERMISSION_TO_QUERY_RECORD
+                };
+            }
+            catch (Exception ex)
+            {
+                return new CustomerResponse()
+                {
+                    Success = false,
+                    Message = ex.Message,
+                    ErrorCode = ErrorCodes.UNKNOWN
+                };
+            }
+        }
+
+        public void ValidateUserPermission(User user)
+        {
+            if (!user.Permissions.Contains(
+                Permissions.ReadCustomers.ToString()))
+            {
+                throw new UserDoesNotHavePermissionsToSeeTheRecord();
+            }
         }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PublicWebSite;
+using System.Security.Claims;
 
 namespace WebAPI.Controllers
 {
@@ -14,6 +16,34 @@ namespace WebAPI.Controllers
             _mediator= mediator;
         }
 
+        [Authorize]
+        [HttpGet]
+        public async Task<ActionResult<CustomerResponse>> GetCustomerData(
+            int customerId)
+        {
+            var userDomain = PopulateUserPermissions(User);
+
+            var query = new GetCustomerQuery
+            {
+                Id = customerId,
+                User = userDomain
+            };
+
+            var res = await _mediator.Send(query);
+
+            if (res.Success)
+            { 
+                return Ok(res);
+            }
+            else if (res.ErrorCode == ErrorCodes.USER_DOES_NOT_HAVE_PERMISSION_TO_QUERY_RECORD)
+            {
+                return Unauthorized(res.Message);
+            }
+
+            return BadRequest(500);
+        }
+
+        [HttpPost]
         public async Task<ActionResult<CustomerResponse>> CreateCustomer(
             CustomerDTO customer
             )
@@ -38,6 +68,23 @@ namespace WebAPI.Controllers
             }
 
             return BadRequest(500);
+        }
+
+        public static Domain.User PopulateUserPermissions(ClaimsPrincipal userClaims)
+        {
+            var user = new Domain.User
+            {
+                Username = userClaims.FindFirst(ClaimTypes.Name)?.Value,
+                Permissions = new List<string>(),
+                Roles = new List<string>()
+            };
+
+            var roleClaims = userClaims.FindAll(ClaimTypes.Role).Select(claim => claim.Value);
+            user.Roles.AddRange(roleClaims);
+
+            var permissionClaims = userClaims.FindAll("permission").Select(claim => claim.Value);
+            user.Permissions.AddRange(permissionClaims);
+            return user;
         }
     }
 }

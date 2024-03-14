@@ -21,7 +21,8 @@ public class APIConfiguration
 	{
 		var app = _builder.Build();
 		app.UseHttpsRedirection();
-		app.UseAuthorization();
+        app.UseAuthentication();
+        app.UseAuthorization();
 		app.MapControllers();
 		return app.RunAsync();
 	}
