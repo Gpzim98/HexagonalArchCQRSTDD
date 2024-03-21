@@ -9,18 +9,10 @@ namespace PublicWebSiteTests
         [Fact]
         public async Task Should_Create_Customer()
         {
-            var createCustomerMock = new Mock<ICreateCustomer>();
-            createCustomerMock.Setup(
-                c => c.CreateCustomerAsync(It.IsAny<CustomerDTO>())).Returns(
-                Task.FromResult(It.IsAny<Domain.Entities.Customer>()));
-
-            var handler = new CreateCustomerCommandHandler(createCustomerMock.Object);
-            var command = new CreateCustomerCommand();
-
             var customerDto = new CustomerDTO()
             {
                 Id = 1,
-                Name= "Test",
+                Name = "Test",
                 Surname = "Test",
                 Email = "test@test.com",
                 DocumentId = new Domain.ValueObjects.CustomerDocument()
@@ -29,6 +21,14 @@ namespace PublicWebSiteTests
                     DocumentType = Domain.Enums.DocumentType.DriveLicence
                 }
             };
+
+            var createCustomerMock = new Mock<ICreateCustomer>();
+            createCustomerMock.Setup(
+                c => c.CreateCustomerAsync(It.IsAny<CustomerDTO>())).Returns(
+                Task.FromResult(CustomerDTO.MapToDomain(customerDto)));
+
+            var handler = new CreateCustomerCommandHandler(createCustomerMock.Object);
+            var command = new CreateCustomerCommand();
 
             command.CustomerDTO = customerDto;
 

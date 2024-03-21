@@ -34,7 +34,7 @@ namespace PublicWebSite
 
     public class UserResponse : Response
     {
-        public User Data;
+        public UserDTO Data;
         public string Token;
     }
 }

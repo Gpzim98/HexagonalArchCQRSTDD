@@ -22,7 +22,7 @@ var apiConfiguration = new APIConfiguration(args, options =>
 
     options.AddScoped<ICreateCustomer, CustomerCreator>();
     options.AddScoped<IProvideCustomerData, CustomerDataProvider>();
-    options.AddScoped<IAuthProvider, TokenGeneration>();
+    options.AddScoped<IAuthProvider, SimpleAuthProvider>();
     options.AddScoped<IUserProvider, UserProvider>();
 
     options.AddMvc().AddJsonOptions(options =>

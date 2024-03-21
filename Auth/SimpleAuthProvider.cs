@@ -7,11 +7,11 @@
     using System.Security.Claims;
     using System.Text;
 
-    public class TokenGeneration : IAuthProvider
+    public class SimpleAuthProvider : IAuthProvider
     {
         private readonly IConfiguration _configuration;
         private readonly IUserProvider _userProvider;
-        public TokenGeneration(
+        public SimpleAuthProvider(
             IConfiguration configuration, IUserProvider userProvider)
         {
             _userProvider = userProvider;
@@ -43,14 +43,14 @@
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            foreach (var role in user.Roles)
-            {
-                claims.Add(new Claim(ClaimTypes.Role, role));
-            }
-
             foreach (var permission in user.Permissions)
             {
                 claims.Add(new Claim("permission", permission));
+            }
+
+            foreach (var role in user.Roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
             }
 
             var token = new JwtSecurityToken(

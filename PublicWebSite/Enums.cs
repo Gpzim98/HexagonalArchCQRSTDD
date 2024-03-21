@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace PublicWebSite
+﻿namespace PublicWebSite
 {
     public enum Permissions
     {
@@ -12,5 +6,11 @@ namespace PublicWebSite
         ReadCustomers,
         UpdateCustomers,
         DeleteCustomers
+    }
+
+    public enum Roles
+    {
+        Manager, 
+        MarketingSupervisor
     }
 }

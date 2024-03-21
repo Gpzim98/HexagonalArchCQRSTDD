@@ -14,7 +14,7 @@ namespace PublicWebSite
         {
             try
             {
-                ValidateUserPermission(query.User);
+                ValidateUserPermissions(query.User);
                 var customer = await _customerDataProvider.GetCustomerData(query.Id);
                 return new CustomerResponse
                 {
@@ -43,10 +43,10 @@ namespace PublicWebSite
             }
         }
 
-        public void ValidateUserPermission(User user)
+        public void ValidateUserPermissions(UserDTO user)
         {
-            if (!user.Permissions.Contains(
-                Permissions.ReadCustomers.ToString()))
+            if (!user.Roles.Contains(
+                Roles.Manager.ToString()))
             {
                 throw new UserDoesNotHavePermissionsToSeeTheRecord();
             }

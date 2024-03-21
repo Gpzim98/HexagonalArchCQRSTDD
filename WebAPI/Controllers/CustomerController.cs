@@ -21,12 +21,12 @@ namespace WebAPI.Controllers
         public async Task<ActionResult<CustomerResponse>> GetCustomerData(
             int customerId)
         {
-            var userDomain = PopulateUserPermissions(User);
+            var userDto = PopulateUserPermissions(User);
 
             var query = new GetCustomerQuery
             {
                 Id = customerId,
-                User = userDomain
+                User = userDto
             };
 
             var res = await _mediator.Send(query);
@@ -70,9 +70,9 @@ namespace WebAPI.Controllers
             return BadRequest(500);
         }
 
-        public static Domain.User PopulateUserPermissions(ClaimsPrincipal userClaims)
+        public static UserDTO PopulateUserPermissions(ClaimsPrincipal userClaims)
         {
-            var user = new Domain.User
+            var user = new UserDTO
             {
                 Username = userClaims.FindFirst(ClaimTypes.Name)?.Value,
                 Permissions = new List<string>(),

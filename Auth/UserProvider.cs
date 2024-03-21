@@ -13,7 +13,7 @@ namespace Auth
     public class Response
     {
         public bool Success { get; set; }   
-        public User User { get; set; }
+        public UserDTO User { get; set; }
         public ErroCodes ErrorCode { get; set; }
         public string Message { get; set; }
     }
@@ -24,7 +24,28 @@ namespace Auth
 
             try
             {
-                var user = ValidateUserCredentials(login);
+                ValidateUserCredentials(login);
+
+                var user = new UserDTO
+                {
+                    Username = login.Username,
+                    Password = login.Password,
+                };
+
+                user.Permissions = new List<string> 
+                {
+                    "CreateCustomers",
+                    "ReadCustomers",
+                    "UpdateCustomers",
+                    "DeleteCustomers"
+                };
+
+                user.Roles = new List<string> 
+                { 
+                    "Manager", 
+                    "MarketingSupervisor" 
+                };
+
                 return new Response
                 {
                     Success = true,
@@ -51,29 +72,14 @@ namespace Auth
             }
         }
 
-        public User ValidateUserCredentials(Login login)
+        public bool ValidateUserCredentials(Login login)
         {
             if (login.Username != "user" || login.Password != "password")
             {
                 throw new InvalidUserCredentials("Invalid Credentials");
             }
 
-            var user = new User
-            {
-                Username = login.Username,
-                Password = login.Password,
-            };
-
-            user.Permissions = new List<string> {
-                "CreateCustomers",
-                //"ReadCustomers",
-                "UpdateCustomers",
-                "DeleteCustomers"
-            };
-
-            user.Roles = new List<string> { "Admin", "User" };
-
-            return user;
+            return true;
         }
     }
 }
